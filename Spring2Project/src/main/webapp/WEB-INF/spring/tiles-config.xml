@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<definition name="mainTemplate" template="/WEB-INF/views/mainTemplate.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp"/>
+	</definition>
+
+	<!-- 첫번째 *에 들어가는 키워드가 {1}에 들어가고, 만약 notice/*/*로 설정시 두번째 *에 들어가는 키워드는 {2}에 들어감 -->
+	<definition name="notice/*" extends="mainTemplate">
+		<!-- header / content / footer 중 content영역 설정 -->
+		<put-attribute name="content" value="/WEB-INF/views/noticeboard/{1}.jsp"/>
+	</definition>
+
+
+	<definition name="loginTemplate" template="/WEB-INF/views/loginTemplate.jsp"></definition>
+
+	<definition name="conn/*" extends="loginTemplate">
+		<put-attribute name="content" value="/WEB-INF/views/noticeboard/{1}.jsp"/>
+	</definition>
+
+</tiles-definitions>

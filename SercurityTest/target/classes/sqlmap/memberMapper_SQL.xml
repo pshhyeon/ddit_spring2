@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.IMemberMapper">
+
+	<!-- 1:n의 관계 테이블 정의 -->	
+	<!-- 1 => DB테이블에서 조회한 값을 매핑한다 -->
+	<resultMap type="crudMember" id="memberMap">
+		<id property="userNo" column="user_no"/>
+		<result property="userNo" column="user_no"/>
+		<result property="userId" column="user_Id"/>
+		<result property="userPw" column="user_pw"/>
+		<result property="userName" column="user_name"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="updDate" column="upd_date"/>
+		<!-- VO에 컬렉션 타입으로 설정된 값에대한 map을 재정의해서 매핑한다 -->
+		<collection property="authList" resultMap="authMap"/>
+	</resultMap>
+	
+	<!-- n => 컬렉션 타입으로 설정된 VO의 값에대한 resultMap정의 -->
+	<resultMap type="crudMemberAuth" id="authMap">
+		<result property="userNo" column="user_no"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+	
+	<!-- inner join 교집합 | outer join 합집합 -->
+	<select id="readByUserId" parameterType="string" resultMap="memberMap">
+		select
+			m.user_no, user_id, user_pw, user_name, reg_date, upd_date, auth
+		from member m left outer join member_auth ma on(m.user_no = ma.user_no)
+		where m.user_id = #{userId}
+	</select>
+	
+	
+</mapper>

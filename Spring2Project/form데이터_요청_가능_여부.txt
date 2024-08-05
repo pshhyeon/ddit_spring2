@@ -1,0 +1,19 @@
+form 데이터를 요청시 Server애서 받는것이 가능한가??
+
+ - 동기 방식 요청
+	1. String							o
+	2. @RequestParam Map <>				o
+	3. List 절대 안됨						x
+	4. 객체 - 객체안에있는 List(가능)			o
+
+-------------------------------------------
+ - 비동기 방식 요청
+	1. String 안됨						x
+	2. @RequestBody Map<>				o
+	3. @RequestBody List 가능				o
+	4. @RequestBody 객체(안에 일반데이터)		o
+
+	
+	
+	
+일반데이터로 동기방식 연습	>	일반데이터로 비동기방식 연습	>	파일데이터로 동기/비동기 연습 
